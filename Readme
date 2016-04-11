@@ -12,7 +12,7 @@ functional homogeneity and reproducibility.
 
 This is a light version of SLIC_individual (https://github.com/yuzhounh/SLIC_individual).
 It consumes less memory so that it is suitable to run on a personal computer. 
-Major changes are taken in calculating weight matrix and Dice coefficient. 
+Major changes are made in calculating weight matrix and Dice coefficient. 
 
 Usage:
 Run m1_main.m to play the demo. 
