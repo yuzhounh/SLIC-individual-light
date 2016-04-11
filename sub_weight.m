@@ -44,7 +44,7 @@ for iM=1:nM
     W(iM,iM)=0; % clear diagonals
    
     % for empty rows, set the diagonal elements to be ones
-    tmp=W(iM,:)==0;
+    tmp=double(W(iM,:)==0);
     if(prod(tmp)==1)
         W_diag(iM,iM)=1;
         nEmpty=nEmpty+1;
