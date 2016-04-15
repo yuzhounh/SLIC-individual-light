@@ -76,8 +76,7 @@ for methods={'Ncut','SLIC'}
     tmp=[1,2;1,3;2,3];
     nRep=3;
     dice=zeros(nRep,nK);
-    parc_parpool(3);
-    parfor iK=1:nK
+    for iK=1:nK
         for iRep=1:nRep
             dice(iRep,iK)=eval_dice(method,sSub(tmp(iRep,1)),sSub(tmp(iRep,2)),iK);
         end
