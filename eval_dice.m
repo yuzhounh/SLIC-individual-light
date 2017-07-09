@@ -35,7 +35,7 @@ SB=0;
 SC=0;
 tic;
 for i=1:nM
-    for j=1:nM
+    for j=1:i
         if A(i)==A(j)
             SA=SA+1;
         end
