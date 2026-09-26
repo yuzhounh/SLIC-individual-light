@@ -1,33 +1,50 @@
-Parcellating whole brain for individuals by simple linear iterative clustering
-Copyright (C) 2016 Jing Wang
+# SLIC Individual — Light
 
-Generating whole brain atlas with resting-state fMRI data using normalized 
-cuts (Ncut) and simple linear iterative clustering (SLIC). The parcellaiton
-is only performed in the individual subject level. In order to generate 
-parcellations with multiple granularities, we vary the cluster number in a 
-wide range. The two parcellation algorithms are compared under four 
-evaluation metrics, i.e., the difference between the initialized cluster 
-number and the average actual cluster number, spatial discontiguity index, 
-functional homogeneity and reproducibility. 
+MATLAB scripts for individual whole-brain parcellation of resting-state fMRI data with normalized cuts and simple linear iterative clustering.
 
-This is a light version of SLIC_individual (https://github.com/yuzhounh/SLIC-individual).
-It consumes less memory so that it is suitable to run on a personal computer. 
-Major changes are made in calculating weight matrix and Dice coefficient. 
+[GPL-3.0 license](LICENSE) · [Manuscript](manuscript.pdf)
 
-Usage:
-Run m1_main.m to play the demo. 
+The original documentation describes this as a version of [SLIC-individual](https://github.com/yuzhounh/SLIC-individual) with lower memory use in weight-matrix and Dice-coefficient calculations.
 
-Notes:
-1. You might download the NIFTI toolbox and the demo data manually.
-2. For parallel computing, carefully choose the number of parallel workers
-   to make the most of the hardware resources. You might set more parallel 
-   workers if accessible.
-3. The number of redundant eigenvectors is set arbitrarily, and should be 
-   set larger in case of error when applying the scripts on other databases. 
+## Quick Start
 
-Contact information:
-Jing Wang
-wangjing0@seu.edu.cn
-yuzhounh@163.com
+1. Open the repository directory in MATLAB with Parallel Computing Toolbox available.
+2. Review [m1_download.m](m1_download.m). It expects `NIfTI_20140122.zip` and `SLIC_individual_data.zip`; it attempts to download missing archives from the URLs in that file. These historical download endpoints have not been checked here.
+3. Review the data preparation and worker counts before running the full workflow. [m1_prepare.m](m1_prepare.m) selects subjects 00440, 01018, and 01244, and cluster counts from 50 to 1000 in steps of 50. [m1_parc.m](m1_parc.m) requests three parallel workers.
+4. Run from the repository directory:
 
-2016-4-8 23:01:55
+```matlab
+m1_main
+```
+
+Preparation extracts the dataset, decompresses root-level `*.gz` files, removes those compressed files, and moves the subject images into `data/`. Use a dedicated copy of the repository for the demo.
+
+## Workflow and Evaluation
+
+The entry point downloads inputs, prepares data, runs parcellation, draws illustrations, computes evaluation metrics, and summarizes and plots the results.
+
+The documented comparisons cover cluster counts, spatial discontiguity, functional homogeneity, and reproducibility. When adapting the scripts to another dataset, review the number of redundant eigenvectors as described in the original notes.
+
+## Repository Structure
+
+- [m1_main.m](m1_main.m): full workflow.
+- [m1_download.m](m1_download.m) and [m1_prepare.m](m1_prepare.m): dependencies and dataset preparation.
+- [m1_parc.m](m1_parc.m): parcellation stages.
+- [Ncut_sub_parc.m](Ncut_sub_parc.m) and [SLIC_sub_parc.m](SLIC_sub_parc.m): subject-level methods.
+- [m1_eval.m](m1_eval.m), [m1_summ.m](m1_summ.m), and [m1_plot.m](m1_plot.m): evaluation and reporting.
+- [manuscript.pdf](manuscript.pdf): accompanying paper.
+
+## Related Projects
+
+- [SLIC-individual](https://github.com/yuzhounh/SLIC-individual): related implementation identified by the original documentation.
+
+## License
+
+See the existing [GNU General Public License, version 3](LICENSE). Retain the notices in the source files and in bundled third-party material.
+
+## Contact
+
+Jing Wang · [wangjing0@seu.edu.cn](mailto:wangjing0@seu.edu.cn) · [yuzhounh@163.com](mailto:yuzhounh@163.com)
+
+Copyright (C) 2016 Jing Wang.
+
